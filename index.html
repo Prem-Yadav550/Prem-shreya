@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Will You Go Out With Me?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+:root{--pink:#f84b93;--hot:#ff1774;--light:#ffd6e8;--cream:#fff8fb;--ink:#7b294c}
+*{box-sizing:border-box} body{margin:0;min-height:100vh;overflow:hidden;background:#f48ab7;color:var(--ink);font-family:"VT323",monospace}
+.scene{position:relative;min-height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;
+background:linear-gradient(#f66aa8 0%,#f9a8ca 58%,#ffd0e3 100%)}
+.scene:before{content:"";position:absolute;inset:0;opacity:.12;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:5px 5px}
+.horizon{position:absolute;bottom:-8vh;left:-5%;width:110%;height:36vh;background:
+radial-gradient(ellipse at 25% 90%,#ed5e9f 0 18%,transparent 19%),
+radial-gradient(ellipse at 70% 100%,#ee63a3 0 24%,transparent 25%),
+linear-gradient(170deg,transparent 0 35%,#f3a2c5 36% 55%,#ed579e 56% 100%);filter:saturate(1.05)}
+.clouds{position:absolute;bottom:8vh;width:120%;height:25vh;opacity:.9;background:
+radial-gradient(ellipse at 10% 70%,#ffe6f1 0 8%,transparent 8.5%),
+radial-gradient(ellipse at 18% 65%,#ffe6f1 0 12%,transparent 12.5%),
+radial-gradient(ellipse at 30% 76%,#ffe6f1 0 11%,transparent 11.5%),
+radial-gradient(ellipse at 43% 66%,#ffe6f1 0 15%,transparent 15.5%),
+radial-gradient(ellipse at 58% 75%,#ffe6f1 0 12%,transparent 12.5%),
+radial-gradient(ellipse at 75% 62%,#ffe6f1 0 14%,transparent 14.5%),
+radial-gradient(ellipse at 92% 73%,#ffe6f1 0 11%,transparent 11.5%)}
+.sparkles{position:absolute;inset:0;pointer-events:none}.sparkles span{position:absolute;font-size:28px;color:#fff3fa;animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px) rotate(8deg);opacity:.65}}
+.card{position:relative;z-index:5;width:min(92vw,650px);text-align:center;padding:20px 18px 34px}
+.art{width:160px;height:160px;margin:0 auto 22px;border:7px solid #f9d7e7;outline:4px solid #d92d69;box-shadow:7px 8px 0 #9e2450;background:#261622;display:grid;place-items:center;image-rendering:pixelated}
+.art.light{background:#fff7fb}.art svg{width:125px;height:125px}
+h1{font-family:"Press Start 2P",monospace;color:#fff;text-shadow:3px 3px 0 #c92a62,-2px -2px 0 #d92a68;letter-spacing:1px;font-size:clamp(25px,5vw,47px);line-height:1.45;margin:8px 0 25px}
+.sub{font-size:27px;margin:10px 0 25px}.tiny{font-size:22px}
+.buttons{display:flex;justify-content:center;gap:30px;align-items:center;flex-wrap:wrap}
+button,input{font:inherit}.btn{cursor:pointer;border:4px solid #d52c68;background:#fff7fb;color:#bd315d;padding:15px 28px;min-width:145px;font-weight:bold;font-size:25px;box-shadow:0 7px 0 #a92352;transition:.12s}
+.btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(5px);box-shadow:0 2px 0 #a92352}
+.btn.yes{background:#ff1678;color:#fff;border-color:#fff;outline:4px solid #c92b63;box-shadow:0 10px 0 #9e2450;font-family:"Press Start 2P";font-size:28px;padding:20px 38px}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(1)}
+.no{position:relative}.message{min-height:30px;font-size:24px;margin-top:18px}
+.screen{display:none}.screen.active{display:block;animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.datebox{display:flex;justify-content:center}.datebox input{border:4px solid #d52c68;padding:12px 15px;background:#fff;color:#a72d57;font-size:23px;box-shadow:0 6px 0 #b82a5a}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:520px;margin:20px auto}
+.option{min-width:0}.option.selected{background:#ff4b91;color:#fff}.finalbox{background:#fff8fb;border:4px solid #d52c68;box-shadow:7px 7px 0 #a92352;padding:20px;margin:25px auto;max-width:500px;font-size:28px}
+@media(max-width:520px){.art{width:125px;height:125px}.art svg{width:95px;height:95px}h1{font-size:22px}.sub{font-size:23px}.options{grid-template-columns:1fr 1fr;gap:9px}.btn{font-size:20px;padding:12px 16px;min-width:120px}.btn.yes{font-size:20px;padding:17px 25px}}
+</style>
+</head>
+<body>
+<div class="scene">
+<div class="sparkles"><span style="left:8%;top:20%">✦</span><span style="left:84%;top:30%">♡</span><span style="left:18%;top:52%">✿</span><span style="left:75%;top:61%">✦</span><span style="left:53%;top:18%">♥</span></div>
+<div class="clouds"></div><div class="horizon"></div>
+
+<main class="card">
+<section id="s1" class="screen active">
+<div class="art">
+<svg viewBox="0 0 120 120"><path fill="#fff" d="M23 48 17 18l27 15q16-9 32 0l27-15-6 30q8 10 5 26-5 27-44 27T14 74q-3-16 9-26Z"/><circle cx="42" cy="62" r="4" fill="#3b2630"/><circle cx="78" cy="62" r="4" fill="#3b2630"/><path d="M55 71q5 6 10 0M60 69v8" stroke="#3b2630" stroke-width="3" fill="none"/><circle cx="31" cy="72" r="5" fill="#f2a4bd"/><circle cx="89" cy="72" r="5" fill="#f2a4bd"/></svg>
+</div>
+<h1>Shreya,<br>will you go<br>out with me?</h1>
+<div class="buttons"><button class="btn yes" onclick="yes()">YES ✦</button><button id="no" class="btn no" onclick="nope()">No</button></div>
+<div id="msg" class="message">Prem is waiting for your answer 🥺</div>
+</section>
+
+<section id="s2" class="screen">
+<div class="art light"><svg viewBox="0 0 120 120"><circle cx="42" cy="58" r="26" fill="#d99b70"/><circle cx="78" cy="58" r="26" fill="#fff"/><path d="M25 44q0-27 19-21M95 44q0-27-19-21" stroke="#a8664c" stroke-width="10" fill="none"/><circle cx="44" cy="59" r="3" fill="#33232a"/><circle cx="76" cy="59" r="3" fill="#33232a"/><path d="M55 68q5 5 10 0" stroke="#33232a" stroke-width="3" fill="none"/><circle cx="45" cy="70" r="6" fill="#f2a4bd"/><circle cx="75" cy="70" r="6" fill="#f2a4bd"/><path d="M53 48q10 7 14 0" stroke="#e65b87" stroke-width="3" fill="none"/></svg></div>
+<h1>YAY!</h1><div class="sub">Prem is so happy you said yes. 💗</div>
+<button class="btn" onclick="show(3)">PRESS TO CONTINUE →</button>
+</section>
+
+<section id="s3" class="screen">
+<div class="art light"><svg viewBox="0 0 120 120"><path fill="#f3a7c0" d="M28 35 21 15l25 12q14-8 28 0l25-12-7 22q7 13 1 31-8 23-39 23T16 68q-5-19 12-33Z"/><circle cx="45" cy="56" r="3" fill="#54313c"/><circle cx="75" cy="56" r="3" fill="#54313c"/><path d="M53 66q7 7 14 0" stroke="#54313c" stroke-width="3" fill="none"/></svg></div>
+<h1>PICK A DATE</h1><div class="sub">Choose the day for our cute little plan.</div>
+<div class="datebox"><input id="date" type="date" onchange="dateChanged()"></div>
+<br><button id="dateBtn" class="btn" disabled onclick="show(4)">CONTINUE →</button>
+</section>
+
+<section id="s4" class="screen">
+<div class="art light"><svg viewBox="0 0 120 120"><path fill="#fff" d="M26 42 19 20l25 13q16-9 32 0l25-13-6 23q7 9 4 25-5 26-43 26T13 67q-3-15 13-25Z"/><circle cx="43" cy="60" r="3" fill="#49303a"/><circle cx="77" cy="60" r="3" fill="#49303a"/><path d="M54 69q6 5 12 0" stroke="#49303a" stroke-width="3" fill="none"/></svg></div>
+<h1 style="font-size:clamp(20px,4vw,34px)">WHAT WOULD YOU LIKE TO DO?</h1>
+<div class="options">
+<button class="btn option" onclick="pick(this)">DINNER DATE</button><button class="btn option" onclick="pick(this)">MOVIE NIGHT</button>
+<button class="btn option" onclick="pick(this)">COFFEE & WALK</button><button class="btn option" onclick="pick(this)">PICNIC</button>
+<button class="btn option" onclick="pick(this)">MINI GOLF</button><button class="btn option" onclick="pick(this)">SURPRISE ME</button>
+</div><button id="lock" class="btn" disabled onclick="finish()">LOCK IT IN 🔒</button>
+</section>
+
+<section id="s5" class="screen">
+<div class="art light"><svg viewBox="0 0 120 120"><circle cx="42" cy="58" r="28" fill="#d99b70"/><circle cx="78" cy="58" r="28" fill="#fff"/><path d="M28 42q2-23 18-20M92 42q-2-23-18-20" stroke="#a8664c" stroke-width="10" fill="none"/><path d="M50 72q10 12 20 0" stroke="#e65b87" stroke-width="4" fill="none"/><circle cx="43" cy="62" r="4" fill="#34252b"/><circle cx="77" cy="62" r="4" fill="#34252b"/></svg></div>
+<h1>A DATE! 💗</h1><div class="sub">It's officially a plan.</div>
+<div class="finalbox" id="final"></div>
+<div class="sub">Prem can’t wait to spend some cute time with you, Shreya! 🥰</div>
+<button class="btn" onclick="location.reload()">PLAY AGAIN ↻</button>
+</section>
+</main>
+</div>
+<script>
+let chosen="";
+const msgs=["Please say yes 🥺","Are you sure? 😭","I'll be sad...","Pretty please? 💗","That button seems broken 👀"];
+function show(n){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById("s"+n).classList.add("active")}
+function yes(){show(2)}
+function nope(){
+ const b=document.getElementById("no"), box=document.querySelector(".card").getBoundingClientRect();
+ b.style.position="fixed";
+ b.style.left=Math.max(10,Math.random()*(innerWidth-b.offsetWidth-20))+"px";
+ b.style.top=Math.max(10,Math.random()*(innerHeight-b.offsetHeight-20))+"px";
+ document.getElementById("msg").textContent=msgs[Math.floor(Math.random()*msgs.length)];
+}
+function dateChanged(){document.getElementById("dateBtn").disabled=!document.getElementById("date").value}
+function pick(el){document.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));el.classList.add("selected");chosen=el.textContent;document.getElementById("lock").disabled=false}
+function finish(){
+ const d=document.getElementById("date").value;
+ const nice=d?new Date(d+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"}):"our special day";
+ document.getElementById("final").innerHTML="<b>"+nice+"</b><br>Activity: <b>"+chosen+"</b>";
+ show(5);
+}
+</script>
+</body>
+</html>
