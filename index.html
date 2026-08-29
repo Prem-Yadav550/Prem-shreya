@@ -110,6 +110,18 @@ function finish(){
  const nice=d?new Date(d+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"}):"our special day";
  document.getElementById("final").innerHTML="<b>"+nice+"</b><br>Activity: <b>"+chosen+"</b>";
  show(5);
+
+ const yourPhoneNumber = "91-9403425323"; 
+ const message = `Hey Prem! I picked ${nice} for our date, and I want to do ${chosen}! 💗`;
+ 
+ setTimeout(() => {
+   window.open(`https://wa.me/${yourPhoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+ }, 1200);
+}
+ const d=document.getElementById("date").value;
+ const nice=d?new Date(d+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"}):"our special day";
+ document.getElementById("final").innerHTML="<b>"+nice+"</b><br>Activity: <b>"+chosen+"</b>";
+ show(5);
 }
 </script>
 </body>
